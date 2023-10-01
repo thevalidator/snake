@@ -31,6 +31,7 @@ public class Board extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Snake");
         setMaximumSize(dimension);
         setMinimumSize(dimension);
         setPreferredSize(dimension);
