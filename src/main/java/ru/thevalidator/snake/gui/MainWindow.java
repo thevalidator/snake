@@ -31,7 +31,6 @@ public class MainWindow extends javax.swing.JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(">> " + e.toString());
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_DOWN -> snake.setDirection(Direction.DOWN);
                     case KeyEvent.VK_UP -> snake.setDirection(Direction.UP);
