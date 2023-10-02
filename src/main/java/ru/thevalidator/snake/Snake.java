@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 import static ru.thevalidator.snake.Direction.*;
 import static ru.thevalidator.snake.gui.GamePanel.ELEMENT_SIZE;
+import static ru.thevalidator.snake.gui.GamePanel.LENGTH;
 
 /**
  * @author thevalidator <the.validator@yandex.ru>
@@ -34,10 +35,22 @@ public class Snake {
     public void moveSnake() {
         Point p = snake.getFirst();
         switch (direction) {
-            case UP -> snake.addFirst(new Point(p.y - 1, p.x));
-            case DOWN -> snake.addFirst(new Point(p.y + 1, p.x));
-            case LEFT -> snake.addFirst(new Point(p.y, p.x - 1));
-            case RIGHT -> snake.addFirst(new Point(p.y, p.x + 1));
+            case UP -> {
+                int y = p.y == 0 ? LENGTH : p.y - 1;
+                snake.addFirst(new Point(y, p.x));
+            }
+            case DOWN -> {
+                int y = p.y == LENGTH ? 0 : p.y + 1;
+                snake.addFirst(new Point(y, p.x));
+            }
+            case LEFT -> {
+                int x = p.x == 0 ? LENGTH : p.x - 1;
+                snake.addFirst(new Point(p.y, x));
+            }
+            case RIGHT -> {
+                int x = p.x == LENGTH ? 0 : p.x + 1;
+                snake.addFirst(new Point(p.y, x));
+            }
             default -> {
             }
         }

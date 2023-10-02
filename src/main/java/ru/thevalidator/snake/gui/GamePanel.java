@@ -22,6 +22,7 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
 
     public static final int BOARD_SIZE = 500;
     public static final int ELEMENT_SIZE = 20;
+    public static final int LENGTH = BOARD_SIZE / ELEMENT_SIZE;
     private final Dimension dimension;
     private int speed;
     private final Snake snake;
