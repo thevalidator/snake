@@ -18,9 +18,14 @@ public class Snake {
 
     private LinkedList<Point> snake;
     private Direction direction;
+    private int score = 0;
 
     public Snake() {
         initSnake();
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public Direction getDirection() {
@@ -37,25 +42,27 @@ public class Snake {
         Point p = snake.getFirst();
         switch (direction) {
             case UP -> {
-                int y = p.y == 0 ? LENGTH : p.y - 1;
+                int y = p.y == 0 ? LENGTH - 1 : p.y - 1;
                 snake.addFirst(new Point(y, p.x));
             }
             case DOWN -> {
-                int y = p.y == LENGTH ? 0 : p.y + 1;
+                int y = p.y == LENGTH - 1 ? 0 : p.y + 1;
                 snake.addFirst(new Point(y, p.x));
             }
             case LEFT -> {
-                int x = p.x == 0 ? LENGTH : p.x - 1;
+                int x = p.x == 0 ? LENGTH - 1 : p.x - 1;
                 snake.addFirst(new Point(p.y, x));
             }
             case RIGHT -> {
-                int x = p.x == LENGTH ? 0 : p.x + 1;
+                int x = p.x == LENGTH - 1 ? 0 : p.x + 1;
                 snake.addFirst(new Point(p.y, x));
             }
             default -> {
             }
         }
-        snake.pollLast();
+        if (!hasEatenFood()) {
+            snake.pollLast();
+        }
     }
 
     public void drawSnake(Graphics2D g2d) {
@@ -92,6 +99,16 @@ public class Snake {
 
     public boolean isFull() {
         return snake.size() == MAX_ELEMENTS;
+    }
+
+    public boolean hasEatenFood() {
+        Point head = snake.getFirst();
+        boolean result = head.x == Food.getX() && head.y == Food.getY();
+        if (result) {
+            Food.setIsEaten(true);
+            score++;
+        }
+        return result;
     }
 
     class Point {

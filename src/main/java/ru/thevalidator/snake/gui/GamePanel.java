@@ -10,9 +10,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.Timer;
+import ru.thevalidator.snake.Food;
 import ru.thevalidator.snake.Snake;
 
 /**
@@ -55,7 +55,6 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
     private void initComponents() {
 
         setBackground(new Color(0, 102, 102));
-        setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 3));
         setMaximumSize(dimension);
         setMinimumSize(dimension);
         setPreferredSize(dimension);
@@ -63,10 +62,10 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -92,6 +91,7 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Food.drawFood(g2d);
         snake.drawSnake(g2d);
     }
 
