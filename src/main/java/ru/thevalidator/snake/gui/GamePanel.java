@@ -23,9 +23,11 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
     public static final int BOARD_SIZE = 500;
     public static final int ELEMENT_SIZE = 20;
     public static final int LENGTH = BOARD_SIZE / ELEMENT_SIZE;
+    public static final int MAX_ELEMENTS = LENGTH * LENGTH;
     private final Dimension dimension;
     private int speed;
     private final Snake snake;
+    private final Timer timer;
 
     /**
      * Creates new form GamePanel
@@ -37,7 +39,7 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
         initComponents();
         speed = 50;
         this.snake = snake;
-        Timer timer = new Timer(speed, this);
+        timer = new Timer(speed, this);
         //timer.setInitialDelay(pause);
         //System.out.println("board=" + board.length);
         timer.start();
@@ -70,8 +72,14 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(">> " + e.toString());
         snake.moveSnake();
+        if (snake.hasCollision()) {
+            System.out.println("GAME OVER");
+            timer.stop();
+        } else if (snake.isFull()) {
+            System.out.println("YOU WIN");
+            timer.stop();
+        }
         repaint();
     }
 

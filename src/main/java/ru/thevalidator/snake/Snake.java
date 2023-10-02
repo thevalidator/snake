@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import static ru.thevalidator.snake.Direction.*;
 import static ru.thevalidator.snake.gui.GamePanel.ELEMENT_SIZE;
 import static ru.thevalidator.snake.gui.GamePanel.LENGTH;
+import static ru.thevalidator.snake.gui.GamePanel.MAX_ELEMENTS;
 
 /**
  * @author thevalidator <the.validator@yandex.ru>
@@ -76,6 +77,21 @@ public class Snake {
         return ( (direction.equals(UP) || direction.equals(DOWN)) && (d.equals(LEFT) || d.equals(RIGHT)) )
                 || 
                ( (direction.equals(LEFT) || direction.equals(RIGHT)) && (d.equals(UP) || d.equals(DOWN)) );
+    }
+
+    public boolean hasCollision() {
+        Point head = snake.getFirst();
+        for (int i = 1; i < snake.size(); i++) {
+            Point body = snake.get(i);
+            if (head.x == body.x && head.y == body.y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFull() {
+        return snake.size() == MAX_ELEMENTS;
     }
 
     class Point {
