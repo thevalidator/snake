@@ -10,34 +10,35 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.Timer;
+import ru.thevalidator.snake.Snake;
 
 /**
  * @author thevalidator <the.validator@yandex.ru>
  */
 public class GamePanel extends javax.swing.JPanel implements ActionListener {
 
-    //private static final int DATA_BLOCK_SIZE = 200;
     public static final int BOARD_SIZE = 500;
-    private static final int ELEMENT_SIZE = 20;
-    private int [][] board = new int[BOARD_SIZE / ELEMENT_SIZE][BOARD_SIZE / ELEMENT_SIZE];
+    public static final int ELEMENT_SIZE = 20;
     private final Dimension dimension;
     private int speed;
+    private final Snake snake;
 
     /**
      * Creates new form GamePanel
+     * @param snake
      */
-    public GamePanel() {
+    public GamePanel(Snake snake) {
         //dimension = new java.awt.Dimension(BOARD_SIZE, BOARD_SIZE + DATA_BLOCK_SIZE);
         dimension = new java.awt.Dimension(BOARD_SIZE, BOARD_SIZE);
         initComponents();
-        speed = 700;
+        speed = 50;
+        this.snake = snake;
         Timer timer = new Timer(speed, this);
         //timer.setInitialDelay(pause);
-        System.out.println("board=" + board.length);
+        //System.out.println("board=" + board.length);
         timer.start();
     }
 
@@ -69,7 +70,7 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(">> " + e.toString());
-        randomizeBoard();
+        snake.moveSnake();
         repaint();
     }
 
@@ -82,32 +83,8 @@ public class GamePanel extends javax.swing.JPanel implements ActionListener {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        g2d.setColor(Color.RED);
-//        g2d.fillOval(300, 300, ELEMENT_SIZE, ELEMENT_SIZE);
-//        g2d.setColor(Color.GRAY);
-//        g2d.fillRect(200, 200, ELEMENT_SIZE, ELEMENT_SIZE);
-        g2d.setColor(Color.BLACK);
-//        Random random = new Random();
-//        for (int i = 1; i <= random.nextInt(10); i++) {
-//            g2d.fillRect(200 + ELEMENT_SIZE * i, 200, ELEMENT_SIZE, ELEMENT_SIZE);
-//        }
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[i][j] == 1) {
-                    g2d.fillRect(ELEMENT_SIZE * i, ELEMENT_SIZE * j, ELEMENT_SIZE, ELEMENT_SIZE);
-                }
-            }
-        }
+        snake.drawSnake(g2d);
     }
-
-    private void randomizeBoard() {
-        Random random = new Random();
-        for (int i = 0; i < board.length; i++) {
-            board[10][i] = random.nextInt(2);
-            board[i][15] = random.nextInt(2);
-        }
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

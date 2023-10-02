@@ -12,21 +12,34 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import ru.thevalidator.snake.Direction;
+import ru.thevalidator.snake.Snake;
 
 /**
  * @author thevalidator <the.validator@yandex.ru>
  */
 public class MainWindow extends javax.swing.JFrame {
+    
+    private final Snake snake;
 
     /**
      * Creates new form Board
      */
     public MainWindow() {
+        snake = new Snake();
         initComponents();
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 System.out.println(">> " + e.toString());
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_DOWN -> snake.setDirection(Direction.DOWN);
+                    case KeyEvent.VK_UP -> snake.setDirection(Direction.UP);
+                    case KeyEvent.VK_LEFT -> snake.setDirection(Direction.LEFT);
+                    case KeyEvent.VK_RIGHT -> snake.setDirection(Direction.RIGHT);
+                    default -> {
+                    }
+                }
             }
         });
     }
@@ -40,7 +53,7 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new GamePanel();
+        jPanel1 = new GamePanel(snake);
         jPanel2 = new InfoPanel();
         jLabel1 = new JLabel();
 

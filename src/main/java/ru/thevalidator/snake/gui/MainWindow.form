@@ -49,7 +49,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GamePanel()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GamePanel(snake)"/>
       </AuxValues>
 
       <Layout>
