@@ -81,9 +81,9 @@ public class Snake {
     }
 
     private boolean isCorrect(Direction d) {        
-        return ( (direction.equals(UP) || direction.equals(DOWN)) && (d.equals(LEFT) || d.equals(RIGHT)) )
+        return ( (direction.equals(UP) || direction.equals(DOWN)) && (d.equals(LEFT) || d.equals(RIGHT)) && (snake.getFirst().x == snake.get(1).x) )
                 || 
-               ( (direction.equals(LEFT) || direction.equals(RIGHT)) && (d.equals(UP) || d.equals(DOWN)) );
+               ( (direction.equals(LEFT) || direction.equals(RIGHT)) && (d.equals(UP) || d.equals(DOWN)) && (snake.getFirst().y == snake.get(1).y));
     }
 
     public boolean hasCollision() {
@@ -106,7 +106,7 @@ public class Snake {
         boolean result = head.x == Food.getX() && head.y == Food.getY();
         if (result) {
             Food.setIsEaten(true);
-            score++;
+            score += Food.getScore();
         }
         return result;
     }

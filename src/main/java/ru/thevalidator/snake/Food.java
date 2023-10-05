@@ -15,8 +15,10 @@ import static ru.thevalidator.snake.gui.GamePanel.LENGTH;
 public class Food {
 
     private static final Random random = new Random();
+    private static int generatedFoodCounter = 0;
     private static int x;
     private static int y;
+    private static int score;
     private static boolean isEaten = false;
     
     static {
@@ -30,6 +32,10 @@ public class Food {
     public static int getY() {
         return y;
     }
+    
+    public static int getScore() {
+        return score;
+    }
 
     public static void setIsEaten(boolean isEaten) {
         Food.isEaten = isEaten;
@@ -39,13 +45,15 @@ public class Food {
         if (isEaten) {
             generateFood();
         }
-        g2d.setColor(Color.GREEN);
+        g2d.setColor(score == 1 ? Color.GREEN : Color.RED);
         g2d.fillOval(ELEMENT_SIZE * x, ELEMENT_SIZE * y, ELEMENT_SIZE, ELEMENT_SIZE);
     }
 
     private static void generateFood() {
+        generatedFoodCounter++;
         x = random.nextInt(LENGTH);
         y = random.nextInt(LENGTH);
         setIsEaten(false);
+        score = generatedFoodCounter % 10 == 0 ? 10 : 1;
     }
 }

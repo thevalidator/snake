@@ -31,6 +31,9 @@ public class MainWindow extends javax.swing.JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                // TODO: collision if fast click DOWN and LEFT, need to check that snake moved in new direction...  
+                // (if snake goes down press fast L + U) 
+                // UPD: fixed in isCorrect(), but not ideal (sometimes can not change direction very quickly)
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_DOWN -> snake.setDirection(Direction.DOWN);
                     case KeyEvent.VK_UP -> snake.setDirection(Direction.UP);
@@ -39,6 +42,7 @@ public class MainWindow extends javax.swing.JFrame {
                     default -> {
                     }
                 }
+                jLabel2.setText(String.valueOf(snake.getScore()));
             }
         });
     }
@@ -55,6 +59,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1 = new GamePanel(snake);
         jPanel2 = new InfoPanel();
         jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Snake");
@@ -72,18 +77,26 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel1.setText("SCORE:");
 
+        jLabel2.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel2.setText(String.valueOf(snake.getScore()));
+
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(522, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(427, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -142,6 +155,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel jLabel1;
+    private JLabel jLabel2;
     private JPanel jPanel1;
     private JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
